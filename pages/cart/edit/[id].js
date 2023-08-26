@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function EditCart() {
   return (
     <div>EditCart</div>
-  )
+  );
 }
 
-export default EditCart
+export default EditCart;
