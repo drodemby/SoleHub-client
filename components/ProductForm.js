@@ -15,6 +15,7 @@ const initialState = {
   price: '',
   color: '',
   brand: '',
+  sellerId: '',
 };
 
 const ProductForm = ({ obj }) => {
@@ -62,7 +63,7 @@ const ProductForm = ({ obj }) => {
         price: currentProduct.price,
         color: currentProduct.color,
         brand: currentProduct.brand,
-        sellerId: user.uid,
+        sellerId: user.id,
 
       };
       updateProduct(productUpdate)
@@ -76,11 +77,11 @@ const ProductForm = ({ obj }) => {
         price: currentProduct.price,
         color: currentProduct.color,
         brand: currentProduct.brand,
-        sellerId: user.uid,
+        sellerId: user.id,
       };
 
       // Send product request to your API
-      createProduct(product).then(() => router.push('/product/myListing'));
+      createProduct(product).then(() => router.push('/products/myListing'));
     }
   };
   return (

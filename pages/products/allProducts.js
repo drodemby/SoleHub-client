@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAllProducts } from '../../utils/data/productData';
+import ProductCard from '../../components/ProductCard';
 
-function allProducts() {
+function AllProducts() {
+  const [product, setProduct] = useState([]);
+
+  const getAllProds = () => {
+    getAllProducts().then(setProduct);
+  };
+
+  useEffect(() => {
+    getAllProds();
+  }, []);
   return (
-    <div>allProducts</div>
+    <div className="public-card-container, d-flex flex-wrap">
+      {product.map((prod) => (
+        <ProductCard id={prod.id} boardObj={prod} onUpdate={getAllProds} />
+      ))}
+    </div>
   );
 }
 
-export default allProducts;
+export default AllProducts;
