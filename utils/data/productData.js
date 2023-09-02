@@ -27,7 +27,7 @@ const getMyProducts = (uid) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      const usersProducts = Object.values(data).filter((item) => item.user_id.uid === uid);
+      const usersProducts = Object.values(data).filter((item) => item.seller_id.uid === uid);
       resolve(usersProducts);
     })
     .catch(reject);
@@ -84,7 +84,7 @@ const updateProduct = (payload) => new Promise((resolve, reject) => {
 });
 
 const createProduct = (payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/proudcts`, {
+  fetch(`${clientCredentials.databaseURL}/products`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
