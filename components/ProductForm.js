@@ -170,7 +170,7 @@ ProductForm.propTypes = {
     image: PropTypes.string,
     description: PropTypes.string,
     condition: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
     color: PropTypes.string,
     brand: PropTypes.string,
   }),

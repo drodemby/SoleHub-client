@@ -12,12 +12,12 @@ import { useAuth } from '../utils/context/authContext';
 const ProductCard = ({
   id,
   name,
-  image,
-  description,
-  condition,
-  price,
-  color,
-  brand,
+  // image,
+  // description,
+  // condition,
+  // price,
+  // color,
+  // brand,
   sellerId,
   onUpdate,
 }) => {
@@ -32,31 +32,13 @@ const ProductCard = ({
   return (
     <>
       <div>
-        <Card className="post-card">
-          <Card.Header> {name}</Card.Header>
-          <Card.Body>
-            <img src={image} style={{ width: '200px' }} />
-          </Card.Body>
-          <Card.Body>
-            {description}
-          </Card.Body>
-          <Card.Body>
-            {condition}
-          </Card.Body>
-          <Card.Body>
-            {price}
-          </Card.Body>
-          <Card.Body>
-            {color}
-          </Card.Body>
-          <Card.Body>
-            {brand}
-          </Card.Body>
-          <Card.Footer className="text-white">Seller: {sellerId.first_name}{sellerId.last_name} </Card.Footer>
+        <Card>
+          <Card.Header> Name {name}</Card.Header>
+          <Card.Footer> Seller: {sellerId.first_name}{sellerId.last_name} </Card.Footer>
           <Button
             className="post-card-button"
             onClick={() => {
-              router.push(`/posts/${id}`);
+              router.push(`/products/${id}`);
             }}
           >
             Product Details
@@ -66,18 +48,18 @@ const ProductCard = ({
             ? (
               <>
                 <Button
-                  onClick={deletethisProduct}
-                  className="post-card-button"
-                >
-                  Delete
-                </Button>
-                <Button
                   className="post-card-button"
                   onClick={() => {
                     router.push(`/products/edit/${id}`);
                   }}
                 >
                   Edit Product
+                </Button>
+                <Button
+                  onClick={deletethisProduct}
+                  className="post-card-button"
+                >
+                  Delete
                 </Button>
               </>
             ) : ''}
@@ -90,12 +72,11 @@ const ProductCard = ({
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  condition: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  brand: PropTypes.string.isRequired,
+  // description: PropTypes.string.isRequired,
+  // condition: PropTypes.string.isRequired,
+  // price: PropTypes.string.isRequired,
+  // color: PropTypes.string.isRequired,
+  // brand: PropTypes.string.isRequired,
   sellerId: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
