@@ -56,7 +56,18 @@ function ProductDetails() {
               Edit Product
             </Button>
           </>
-        ) : ''}
+        ) : (
+          <>
+            <Button
+              style={{ margin: '10px', backgroundColor: '#003049' }}
+              onClick={() => {
+                router.push('carts/myCart');
+              }}
+            >
+              Add To Cart
+            </Button>
+          </>
+        )}
     </>
   );
 }
