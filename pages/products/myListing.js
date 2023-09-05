@@ -35,7 +35,7 @@ function MyListing() {
 
       {products.map((product) => (
         <section key={`product--${product.id}`} className="product">
-          <ProductCard id={product.id} title={product.title} imageUrl={product.image} onUpdate={displayProducts} sellerId={product.seller_id} />
+          <ProductCard id={product.id} name={product.name} imageUrl={product.image} onUpdate={displayProducts} sellerId={product.seller_id} />
         </section>
       ))}
     </>

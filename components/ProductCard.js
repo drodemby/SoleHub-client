@@ -33,7 +33,8 @@ const ProductCard = ({
     <>
       <div>
         <Card>
-          <Card.Header> Name {name}</Card.Header>
+          <Card.Header> {name}</Card.Header>
+          <Card.Body />
           <Card.Footer> Seller: {sellerId.first_name}{sellerId.last_name} </Card.Footer>
           <Button
             className="post-card-button"
