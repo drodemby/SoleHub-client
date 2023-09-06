@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteProduct, getSingleProduct } from '../../utils/data/productData';
 import { useAuth } from '../../utils/context/authContext';
+import { createCart } from '../../utils/data/cartData';
 
 function ProductDetails() {
   const [product, setProduct] = useState({});
@@ -22,12 +23,23 @@ function ProductDetails() {
       setUserInfo(data.seller_id.uid);
     });
   }, [id]);
-  console.warn(product);
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    const cart = {
+      // orderId: order.id,
+      productId: product.id,
+    };
+
+    createCart(cart).then(() => router.push('/myCart'));
+  };
+
   const deletethisProduct = () => {
     if (window.confirm('Delete your product?')) {
       deleteProduct(id).then(() => router.push('/products/myListing'));
     }
   };
+
   return (
     <>
       <h1 style={{ marginTop: '30px' }}> {product.name}</h1>
@@ -60,9 +72,7 @@ function ProductDetails() {
           <>
             <Button
               style={{ margin: '10px', backgroundColor: '#003049' }}
-              onClick={() => {
-                router.push('carts/myCart');
-              }}
+              onClick={handleAddToCart}
             >
               Add To Cart
             </Button>
