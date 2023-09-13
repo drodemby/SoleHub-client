@@ -1,17 +1,14 @@
 import { clientCredentials } from '../client';
 
-const getMyCart = (uid) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/carts`, {
+const getMyCart = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/carts/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => {
-      const usersProducts = Object.values(data).filter((item) => item.customer_id.uid === uid);
-      resolve(usersProducts);
-    })
+    .then((data) => resolve((data)))
     .catch(reject);
 });
 
@@ -78,6 +75,17 @@ const createCart = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getCartByOrderId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/carts?order_id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
 export {
-  getMyCart, emptyCart, getSingleCart, updateCart, createCart,
+  getMyCart, emptyCart, getSingleCart, updateCart, createCart, getCartByOrderId,
 };

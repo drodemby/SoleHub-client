@@ -23,22 +23,19 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/delete-me">
-              <Nav.Link>Delete Me</Nav.Link>
-            </Link>
-            <Link passHref href="products/allProducts">
+            <Link passHref href="/products/allProducts">
               <Nav.Link>Products</Nav.Link>
             </Link>
             <Link passHref href="/delete-me">
               <Nav.Link>Order</Nav.Link>
             </Link>
-            <Link passHref href="products/myListing">
+            <Link passHref href="/products/myListing">
               <Nav.Link>My Listings</Nav.Link>
             </Link>
             <Link passHref href="/delete-me">
               <Nav.Link>Profile</Nav.Link>
             </Link>
-            <Link passHref href="/carts/myCart">
+            <Link passHref href="/myCart">
               <Nav.Link>Cart</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteProduct, getSingleProduct } from '../../utils/data/productData';
-import { useAuth } from '../../utils/context/authContext';
 import { createCart } from '../../utils/data/cartData';
+import { OpenOrderbyId } from '../../utils/data/orderData';
+import { useAuth } from '../../utils/context/authContext';
 
 function ProductDetails() {
   const [product, setProduct] = useState({});
@@ -24,14 +25,15 @@ function ProductDetails() {
     });
   }, [id]);
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    const cart = {
-      // orderId: order.id,
-      productId: product.id,
-    };
-
-    createCart(cart).then(() => router.push('/myCart'));
+  const handleAddToCart = () => {
+    OpenOrderbyId(user.id).then((order) => {
+      console.warn(order);
+      const cart = {
+        orderId: order[0].id,
+        productId: product.id,
+      };
+      createCart(cart).then(() => router.push('/myCart'));
+    });
   };
 
   const deletethisProduct = () => {
