@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteProduct, getSingleProduct } from '../../utils/data/productData';
+import { createCart } from '../../utils/data/cartData';
+// import { OpenOrderbyId } from '../../utils/data/orderData';
 import { useAuth } from '../../utils/context/authContext';
 
 function ProductDetails() {
@@ -22,21 +24,32 @@ function ProductDetails() {
       setUserInfo(data.seller_id.uid);
     });
   }, [id]);
-  console.warn(product);
+
+  const handleAddToCart = () => {
+    const cart = {
+      userId: user.id,
+      productId: product.id,
+    };
+    createCart(cart).then(() => router.push('/myCart'));
+    console.warn(cart);
+  };
+
   const deletethisProduct = () => {
     if (window.confirm('Delete your product?')) {
       deleteProduct(id).then(() => router.push('/products/myListing'));
     }
   };
+
   return (
     <>
       <h1 style={{ marginTop: '30px' }}> {product.name}</h1>
       <img src={product.image} />
       <h3>Brand: {product.brand}</h3>
       <h3>Description: {product.description}</h3>
+      <h4>Condition: {product.condition}</h4>
       <h4> {product.price}</h4>
+      <h4> {product.color}</h4>
       <h2>Listed by {seller}</h2>
-      <h4 style={{ marginBottom: '30px' }}>Condition: {product.condition}</h4>
 
       {userInfo === user.uid
         ? (
@@ -60,9 +73,7 @@ function ProductDetails() {
           <>
             <Button
               style={{ margin: '10px', backgroundColor: '#003049' }}
-              onClick={() => {
-                router.push('carts/myCart');
-              }}
+              onClick={handleAddToCart}
             >
               Add To Cart
             </Button>

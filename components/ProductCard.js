@@ -12,12 +12,10 @@ import { useAuth } from '../utils/context/authContext';
 const ProductCard = ({
   id,
   name,
-  // image,
-  // description,
-  // condition,
-  // price,
-  // color,
-  // brand,
+  image,
+  condition,
+  price,
+  brand,
   sellerId,
   onUpdate,
 }) => {
@@ -32,9 +30,15 @@ const ProductCard = ({
   return (
     <>
       <div>
-        <Card>
-          <Card.Header> Name {name}</Card.Header>
-          <Card.Footer> Seller: {sellerId.first_name}{sellerId.last_name} </Card.Footer>
+        <Card style={{ width: '18rem' }}>
+          <Card.Header> {name}</Card.Header>
+          <Card.Body>
+            <Card.Img src={image} alt="product" />
+            <Card.Text> {condition} </Card.Text>
+            <Card.Text> {brand} </Card.Text>
+            <Card.Text> {price} </Card.Text>
+          </Card.Body>
+          <Card.Footer> Listed by {sellerId.first_name}{sellerId.last_name} </Card.Footer>
           <Button
             className="post-card-button"
             onClick={() => {
@@ -72,11 +76,10 @@ const ProductCard = ({
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  // description: PropTypes.string.isRequired,
-  // condition: PropTypes.string.isRequired,
-  // price: PropTypes.string.isRequired,
-  // color: PropTypes.string.isRequired,
-  // brand: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  condition: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  brand: PropTypes.string.isRequired,
   sellerId: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

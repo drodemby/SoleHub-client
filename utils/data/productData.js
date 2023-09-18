@@ -18,6 +18,24 @@ const getAllProducts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getCartProducts = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/products?customer_id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 const getMyProducts = (uid) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/products`, {
     method: 'GET',
@@ -97,5 +115,5 @@ const createProduct = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts, deleteProduct, getSingleProduct, updateProduct, createProduct, getMyProducts,
+  getAllProducts, deleteProduct, getSingleProduct, updateProduct, createProduct, getMyProducts, getCartProducts,
 };
