@@ -1,44 +1,29 @@
-# React/Next.js Django Auth Template
+# SoleHub
+Introducing SoleHub, your ultimate destination for sneaker enthusiasts and footwear aficionados alike. SoleHub is the premier mobile application that brings together sellers and buyers from around the world, creating a vibrant marketplace dedicated to sneakers. Whether you're looking to score the latest releases or sell your prized shoe collection, SoleHub offers a seamless and secure platform to connect, trade, and discover your next pair of kicks. With an ever-expanding catalog of sneakers and a passionate community of sneakerheads, SoleHub is where sneaker culture comes to life. Join us on this exciting journey, where every step is a statement, and every pair has a story. Welcome to SoleHub, where sneaker dreams become reality.
 
-## Topics
-- [Get Started](#getting-started)
-- [Starting the Project](#starting-the-project)
-___
-## Getting Started
-### Use Template
-#### 1. To get started, click the GREEN "Use this Template" button at the top of the repo
-<img width="915" alt="Screen Shot 2022-07-06 at 12 54 01 PM" src="https://user-images.githubusercontent.com/29741570/177612998-4aac9237-5a1e-4f13-8ae0-468587521564.png">
+## Features
+1.Product Listings:
+Users can create product listings, including detailed descriptions and images.
+They can update existing product listings to make changes or adjustments.
+Users can delete product listings when they are no longer available for sale.
 
-#### 2. Make sure YOUR github account is selected in the dropdown and name your project
-<img width="763" alt="Screen Shot 2022-07-06 at 12 54 48 PM" src="https://user-images.githubusercontent.com/29741570/177613126-dd38f678-7553-4f27-8a4a-75680f14d71e.png">
+2.Order Management:
+Users have the ability to create new orders for the products they wish to purchase.
+They can update their existing orders, making changes to the selected products or quantities.
 
-#### 3. Clone your new repo to your local machine
-#### 4. Go to the **NEXT** section
+3.Shopping Cart
+SoleHub includes a shopping cart feature that allows users to add products to their cart for easy checkout.
+Users can update their cart by adding or removing items, ensuring a personalized shopping experience.
 
-## Starting the Project
-1. Create a Firebase project and set up authentication. Use [these videos](https://vimeo.com/showcase/codetracker-firebase) as a refresher if needed.
-1. Create a `.env` file at the root of the project
-1. Copy/Paste the contents of the `.env.sample` file to your newly created `.env` file.
-1. Copy over all of your Firebase values into the `.env` file.
-1. Open the `package.json` file and change the `name` property to the name of your application, and `author` to  your name.
-1. From your command line, be in the root directory and run `npm install` OR `npm i` for short.
-1. Next, run `npm run prepare`. This command sets up husky to track eslint errors on commit that will make your deploy fail on Netlify.
-1. To start your application, run `npm run dev`. THIS IS THE COMMAND YOU WILL USE TO RUN YOUR DEVELOPMENT SERVER FROM NOW ON.
-1. Open [http://localhost:3000](http://localhost:3000) with your browser.
+4.User Profiles:
+Each user has a dedicated profile where they can manage their listings, orders, and personal information.
 
-### If you see this, you are set to go!
-<img width="450" alt="Screen Shot 2022-07-06 at 1 07 27 PM" src="https://user-images.githubusercontent.com/29741570/177615077-9b6a75bc-0260-4d29-bb88-bd95a3140687.png">
+## Links
+[ERD](https://dbdiagram.io/d/SoleHub-64dabf1002bd1c4a5ec5cc27)
 
+[Wireframe](https://www.figma.com/file/XXgrnzibOxRdi7DkW6B0wh/SoleHub?type=design&node-id=0-1&mode=design&t=r3KRPN2Z7OTLBqtn-0)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+[Project Board](https://github.com/users/drodemby/projects/3)
 
-**NOTES:** 
-- If you see the following error, you did not follow all the setup steps correctly and failed to add your Firebase creds. Go back and do that NOW.
+[Server Repo](https://github.com/drodemby/SoleHub-server)
 
-<img width="1043" alt="Screen Shot 2022-07-06 at 11 18 45 AM" src="https://user-images.githubusercontent.com/29741570/177612501-c2628f18-4bbd-4de9-aae6-27ffba1172d6.png">
-        
-## Learn More about Next.js
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
