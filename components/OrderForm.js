@@ -1,89 +1,92 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
-import { createCart, updateCart } from '../utils/data/cartData';
+import { useAuth } from '../utils/context/authContext';
+import ClosedOrderbyId, { updateOrder } from '../utils/data/orderData';
 
 const initialState = {
-  orderId: '',
-  productId: '',
+  payment_type: '', // Initialize only payment_type
 };
 
-function OrderProductForm({ cartObj, productObj, orderObj }) {
-  // const [openOrder, setOpenOrder] = useState({});
-  const [currentCart, setCurrentCart] = useState(initialState);
+function OrderForm() {
+  const [closedOrder, setClosedOrder] = useState(initialState);
+  const paymentOptions = ['CashApp', 'Venmo', 'PayPal', 'Card']; // Payment options as an array
   const router = useRouter();
+  const { user } = useAuth();
 
-  // function to get the open order of the user that is logged in
-  // const getOpenOrder = async () => {
-  //   try {
-  //     const order = await getOpenOrderByUserId(user.id);
-  //     setOpenOrder(order);
-  //   } catch (error) {
-  //     console.error('Error fetching open order: ', error);
-  //   }
-  // };
-
-  // // call the function to get access to the info
-  // useEffect(() => {
-  //   getOpenOrder();
-  // }, [user.id]);
+  const getClosedOrder = async () => {
+    try {
+      const order = await ClosedOrderbyId(user.id);
+      setClosedOrder(order);
+    } catch (error) {
+      console.error('Error fetching closed order: ', error);
+    }
+  };
 
   useEffect(() => {
-    if (cartObj.id) {
-      setCurrentCart({
-        id: cartObj.id,
-        orderId: cartObj.order_id,
-        productId: cartObj.product_id,
-      });
-    }
-  }, [cartObj]);
+    getClosedOrder();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setClosedOrder((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (cartObj.id) {
-      const updatedCart = {
-        id: cartObj.id,
-        orderId: Number(currentCart.orderId),
-        productId: Number(currentCart.productId),
+    e.preventDefault(); // Prevent the default form submission
+    if (closedOrder.payment_type) {
+      const payload = {
+        id: closedOrder.id,
+        payment_type: closedOrder.payment_type, // Include selected payment type
       };
-      updateCart(updatedCart).then(() => router.push('/myCart'));
-    } else {
-      const cart = {
-        orderId: Number(orderObj.id),
-        productId: Number(productObj.id),
-      };
-      createCart(cart).then(() => router.push('/myCart'));
+      updateOrder(payload).then(() => router.push('/confirmation'));
     }
   };
 
   return (
-    <div className="top-centered">
+    <>
+      <div>
+        <h1>{user.name}</h1>
+      </div>
       <Form onSubmit={handleSubmit}>
-        <Button size="lg" variant="warning" type="submit">Add Item to Cart?</Button>
+        <Form.Group className="mb-3">
+          <Form.Label>Select Payment Type</Form.Label>
+          <Form.Select
+            name="payment_type"
+            value={closedOrder.payment_type}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Payment Type</option> {/* Default option */}
+            {paymentOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Complete Order
+        </Button>
       </Form>
-    </div>
+    </>
   );
 }
 
-OrderProductForm.propTypes = {
-  cartObj: PropTypes.shape({
+OrderForm.propTypes = {
+  obj: PropTypes.shape({
     id: PropTypes.number,
-    order_id: PropTypes.number,
-    product_id: PropTypes.number,
+    payment_type: PropTypes.string,
   }),
-  productObj: PropTypes.shape({
-    id: PropTypes.number,
-  }).isRequired,
-  orderObj: PropTypes.shape({
-    id: PropTypes.number,
-  }).isRequired,
 };
 
-OrderProductForm.defaultProps = {
-  cartObj: initialState,
+OrderForm.defaultProps = {
+  obj: initialState,
 };
 
-export default OrderProductForm;
+export default OrderForm;

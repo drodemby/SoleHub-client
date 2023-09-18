@@ -45,7 +45,7 @@ function Cart() {
         status: false,
         payment_type: openOrder[0].payment_type,
       };
-      updateOrder(payload).then(() => router.push('/confirmation'));
+      updateOrder(payload).then(() => router.push('/checkout'));
     }
   };
 
