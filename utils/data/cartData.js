@@ -13,7 +13,7 @@ const getMyCart = (id) => new Promise((resolve, reject) => {
 });
 
 const getSingleCart = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/carts/${id}`, {
+  fetch(`${clientCredentials.databaseURL}/carts?customer_id=${id}&status=true`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -86,6 +86,18 @@ const getCartByOrderId = (id) => new Promise((resolve, reject) => {
     .then(resolve)
     .catch(reject);
 });
+
+const getCartByCustomerId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/cart?customer_id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
 export {
-  getMyCart, emptyCart, getSingleCart, updateCart, createCart, getCartByOrderId,
+  getMyCart, emptyCart, getSingleCart, updateCart, createCart, getCartByOrderId, getCartByCustomerId,
 };

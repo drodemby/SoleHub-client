@@ -1,59 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import CartCard from '../components/CartCard';
+import { useRouter } from 'next/router';
 import { OpenOrderbyId, updateOrder } from '../utils/data/orderData';
-import { getCartByOrderId } from '../utils/data/cartData';
+import { getSingleCart } from '../utils/data/cartData';
 import { useAuth } from '../utils/context/authContext';
+// import ProductCard from '../components/ProductCard';
+import CartItemCard from '../components/CartCard';
 
 function Cart() {
-  const [openOrder, setOpenOrder] = useState({});
   const [cartItems, setCartItems] = useState([]);
+  const [openOrder, setOpenOrder] = useState({});
   const { user } = useAuth();
-
-  const OpenOrder = () => {
-    OpenOrderbyId(user.id).then((data) => setOpenOrder(data));
-  };
+  const router = useRouter();
 
   const getCart = () => {
-    getCartByOrderId(openOrder.id).then((data) => setCartItems(data));
+    getSingleCart(user.id).then((data) => setCartItems(data));
   };
 
   useEffect(() => {
-    OpenOrder();
-    if (openOrder.id) {
-      getCart();
-    }
-  });
+    getCart();
+  }, [user.id]);
 
+  const getOpenOrder = async () => {
+    try {
+      const order = await OpenOrderbyId(user.id);
+      setOpenOrder(order);
+    } catch (error) {
+      console.error('Error fetching open order: ', error);
+    }
+  };
+
+  // call the function to get access to the info
   useEffect(() => {
-    const total = cartItems.reduce((accumulator, object) => accumulator + parseFloat(object.product_id.price).toFixed(2), 0);
+    getOpenOrder();
+  }, [user.id]);
 
-    if (openOrder.id) {
+  const handleCheckout = () => {
+    if (openOrder) {
       const payload = {
-        id: openOrder.id,
-        customerId: openOrder.customer_id.id,
-        paymentType: openOrder.payment_type.id,
-        status: openOrder.status,
-        total: Number(total),
+        id: openOrder[0].id,
+        customer_id: openOrder[0].customer_id.id,
+        status: false,
+        payment_type: openOrder[0].payment_type,
       };
-      updateOrder(payload);
+      updateOrder(payload).then(() => router.push('/confirmation'));
     }
-  }, []);
+  };
 
   return (
     <>
-      <div className="public-card-container, d-flex flex-wrap">
-        <h2>Shopping Cart</h2>
-        {cartItems.map((cart) => (
-          <section key={`cart--${cart.id}`}>
-            <CartCard cartItemObj={cart} onUpdate={getCart} />
+      <h2>Shopping Cart</h2>
+      <div className="public-card-container d-flex flex-wrap">
+        {cartItems.map((product) => (
+          <section key={`product--${product.id}`}>
+            <CartItemCard id={product.id} name={product.product_id.name} image={product.product_id.image} price={product.product_id.price} onUpdate={getCart} />
           </section>
-
         ))}
         <br />
       </div>
-      <Button>Checkout</Button>
+      <Button type="button" className="m-2" onClick={handleCheckout}>Checkout</Button>
     </>
+
   );
 }
 export default Cart;
+// Array.isArray(cartItems) ? ()
+// ) : (
+//   <p>No items in the cart</p>
+// )

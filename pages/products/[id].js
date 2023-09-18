@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { deleteProduct, getSingleProduct } from '../../utils/data/productData';
 import { createCart } from '../../utils/data/cartData';
-import { OpenOrderbyId } from '../../utils/data/orderData';
+// import { OpenOrderbyId } from '../../utils/data/orderData';
 import { useAuth } from '../../utils/context/authContext';
 
 function ProductDetails() {
@@ -26,14 +26,12 @@ function ProductDetails() {
   }, [id]);
 
   const handleAddToCart = () => {
-    OpenOrderbyId(user.id).then((order) => {
-      console.warn(order);
-      const cart = {
-        orderId: order[0].id,
-        productId: product.id,
-      };
-      createCart(cart).then(() => router.push('/myCart'));
-    });
+    const cart = {
+      userId: user.id,
+      productId: product.id,
+    };
+    createCart(cart).then(() => router.push('/myCart'));
+    console.warn(cart);
   };
 
   const deletethisProduct = () => {
@@ -48,9 +46,10 @@ function ProductDetails() {
       <img src={product.image} />
       <h3>Brand: {product.brand}</h3>
       <h3>Description: {product.description}</h3>
+      <h4>Condition: {product.condition}</h4>
       <h4> {product.price}</h4>
+      <h4> {product.color}</h4>
       <h2>Listed by {seller}</h2>
-      <h4 style={{ marginBottom: '30px' }}>Condition: {product.condition}</h4>
 
       {userInfo === user.uid
         ? (
