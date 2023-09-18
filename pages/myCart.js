@@ -19,6 +19,7 @@ function Cart() {
 
   useEffect(() => {
     getCart();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id]);
 
   const getOpenOrder = async () => {
@@ -33,6 +34,7 @@ function Cart() {
   // call the function to get access to the info
   useEffect(() => {
     getOpenOrder();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id]);
 
   const handleCheckout = () => {
