@@ -27,6 +27,7 @@ const ProductForm = ({ obj }) => {
   const [currentProduct, setCurrentProduct] = useState(initialState);
   const router = useRouter();
   const { user } = useAuth();
+  const conditions = ['New', 'Good', 'Old'];
 
   useEffect(() => {
     if (obj.id) {
@@ -67,7 +68,7 @@ const ProductForm = ({ obj }) => {
 
       };
       updateProduct(productUpdate)
-        .then(() => router.push(`/products/${obj.id}`));
+        .then(() => router.push('/products/myListing'));
     } else {
       const product = {
         name: currentProduct.name,
@@ -118,13 +119,20 @@ const ProductForm = ({ obj }) => {
           />
 
           <Form.Label>Condition</Form.Label>
-          <Form.Control
+          <Form.Select
             type="text"
             name="condition"
             value={currentProduct.condition}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select Condition</option> {/* Default option */}
+            {conditions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </Form.Select>
 
           <Form.Label>Price</Form.Label>
           <Form.Control
