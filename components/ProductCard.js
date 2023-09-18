@@ -30,7 +30,7 @@ const ProductCard = ({
   return (
     <>
       <div>
-        <Card>
+        <Card style={{ width: '18rem' }}>
           <Card.Header> {name}</Card.Header>
           <Card.Body>
             <Card.Img src={image} alt="product" />
